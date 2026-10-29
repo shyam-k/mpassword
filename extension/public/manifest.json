@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "mPassword",
+  "version": "0.1.0",
+  "description": "Zero-knowledge password manager. Your vault stays encrypted on your devices.",
+  "minimum_chrome_version": "120",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "mPassword",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "background": { "service_worker": "background.js", "type": "module" },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "permissions": ["storage", "unlimitedStorage", "alarms", "idle", "offscreen", "clipboardWrite", "activeTab"],
+  "commands": {
+    "fill-login": {
+      "suggested_key": { "default": "Ctrl+Shift+L", "mac": "Command+Shift+L" },
+      "description": "Fill the default login (press again to cycle accounts)"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+  }
+}

@@ -1,0 +1,1 @@
+var r,i="";function n(e){let t=document.getElementById("buf");t.value=e,t.select(),document.execCommand("copy"),t.value=""}chrome.runtime.onMessage.addListener((e,t)=>{t.id!==chrome.runtime.id||e?.target!=="offscreen"||e.type!=="copy"||(n(String(e.text)),i=String(e.text),r&&clearTimeout(r),r=setTimeout(()=>{i&&n(" "),i=""},Number(e.clearAfterMs)||3e4))});
